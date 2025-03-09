@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+  build:
+    commands:
+      - echo "Building the app..."
+  post_build:
+    commands:
+      - echo "Zipping artifacts..."
+      - zip -r web-app.zip *
+      - aws s3 cp web-app.zip s3://codepipeline-ap-southeast-2-246379213908
+artifacts:
+  files:
+    - web-app.zip
